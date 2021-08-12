@@ -24,7 +24,9 @@ class setInterval :
 
 
 def main(satellites: List[Satellite]):
+	print("Checking all satellites")
 	for sat in satellites:
+		print(f"Satellite {sat.REMOTE_HOST}")
 		if not sat.is_launched:
 			sat.launch()
 		elif sat.ping() == sat.FAIL_STATUS:
