@@ -3,5 +3,4 @@ WORKDIR /usr/src/app
 COPY ./requirements.txt .
 COPY ./tunnel .
 RUN pip install -r requirements.txt
-RUN apt install -y openssh
 CMD [ "python", "./tunnel.py" ]
