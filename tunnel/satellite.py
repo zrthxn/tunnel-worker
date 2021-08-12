@@ -7,6 +7,7 @@ class Satellite:
 	
 	Raises `OSError` if `launch` command fails.
 	"""
+	TUNNEL_MODE = "-R"
 	TARGET_HOST = "localhost"
 	TARGET_PORT = 80
 	REMOTE_PING_PORT = 80 
@@ -28,6 +29,8 @@ class Satellite:
 			self.TARGET_HOST = props["TARGET_HOST"]
 		if props["TARGET_PORT"] is not None:
 			self.TARGET_PORT = props["TARGET_PORT"]
+		if props["TUNNEL_MODE"] is not None:
+			self.TUNNEL_MODE = props["TUNNEL_MODE"]
 
 		if props["REMOTE_PING_PORT"] is not None:
 			self.REMOTE_PING_PORT = props["REMOTE_PING_PORT"]
@@ -44,6 +47,7 @@ class Satellite:
 				ACCESS_PORT=self.ACCESS_PORT,
 				SSHKEY_FILE=self.SSHKEY_FILE,
 
+				TUNNEL_MODE=self.TUNNEL_MODE,
 				TUNNEL_PORT=self.TUNNEL_PORT,
 				TARGET_HOST=self.TARGET_HOST,
 				TARGET_PORT=self.TARGET_PORT,

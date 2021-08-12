@@ -20,6 +20,7 @@ def build_satellites() -> List[Satellite]:
 						SSHKEY_FILE=satellites[sat]["SSHKEY_FILE"],
 						TUNNEL_PORT=satellites[sat]["TUNNEL_PORT"],
 
+						TUNNEL_MODE=satellites[sat]["TUNNEL_MODE"],
 						TARGET_HOST=satellites[sat]["TARGET_HOST"],
 						TARGET_PORT=satellites[sat]["TARGET_PORT"],
 						REMOTE_PING_PORT=satellites[sat]["REMOTE_PING_PORT"],
@@ -38,6 +39,7 @@ def build_satellites() -> List[Satellite]:
 				SSHKEY_FILE=environ.get("SSHKEY_FILE"),
 				TUNNEL_PORT=environ.get("TUNNEL_PORT"),
 
+				TUNNEL_MODE=environ.get("TUNNEL_MODE"),
 				TARGET_HOST=environ.get("TARGET_HOST"),
 				TARGET_PORT=environ.get("TARGET_PORT"),
 				REMOTE_PING_PORT=environ.get("REMOTE_PING_PORT"),

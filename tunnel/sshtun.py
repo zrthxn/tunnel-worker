@@ -18,8 +18,8 @@ class Tunnel:
 		self.TARGET_HOST = props["TARGET_HOST"]
 		self.TARGET_PORT = props["TARGET_PORT"]
 
-		if props["MODE"] is not None:
-			self.MODE = props["MODE"]
+		if props["TUNNEL_MODE"] is not None:
+			self.MODE = props["TUNNEL_MODE"]
 
 	def dig(self):
 		try:

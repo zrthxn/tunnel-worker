@@ -19,6 +19,7 @@ services:
       - SSHKEY_FILE=/keys/host
       - TUNNEL_PORT=8000
 
+      - TUNNEL_MODE=-R
       - TARGET_HOST=localhost
       - TARGET_PORT=80
       - REMOTE_PING_PORT=80
@@ -53,6 +54,7 @@ satellites:
     SSHKEY_FILE: "/keys/host"
     TUNNEL_PORT: 8000
 
+    TUNNEL_MODE: "-R"
     TARGET_HOST: "localhost"
     TARGET_PORT: 80
     REMOTE_PING_PORT: 80
