@@ -1,7 +1,9 @@
 from time import time
 from threading import Thread, Event
 from os import environ
+from typing import List
 from config import build_satellites
+from satellite import Satellite
 
 class setInterval :
 	def __init__(self, interval, action):
@@ -21,7 +23,7 @@ class setInterval :
 		self.stopEvent.set()
 
 
-def main():
+def main(satellites: List[Satellite]):
 	for sat in satellites:
 		if not sat.is_launched:
 			sat.launch()
@@ -31,17 +33,16 @@ def main():
 	return 0
 
 if __name__ == "__main__":
-	global satellites
 	satellites = build_satellites()
 
 	__time = 3600
 	if environ.get("PING_INTERVAL") is not None:
 		__time = int(environ.get("PING_INTERVAL"))
 
+	def action():
+		main(satellites)
+
 	if len(satellites) > 0:
-		interval = setInterval(__time, main)
+		interval = setInterval(__time, action)
 	else:
 		raise RuntimeError("No Satellites Built")
-
-
-satellites = []

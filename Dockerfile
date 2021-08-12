@@ -1,6 +1,6 @@
 FROM python:3
 WORKDIR /usr/src/app
-COPY ./requirements.txt .
-COPY ./tunnel .
+COPY requirements.txt .
+COPY tunnel .
 RUN pip install -r requirements.txt
-CMD [ "python", "./tunnel.py" ]
+CMD [ "python", "tunnel.py" ]
