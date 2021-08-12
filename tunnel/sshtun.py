@@ -1,4 +1,4 @@
-from subprocess import run
+from subprocess import Popen
 
 class Tunnel:
 	"""
@@ -10,6 +10,7 @@ class Tunnel:
 	MODE = "-R"
 
 	def __init__(self, **props) -> None:
+		self.REMOTE_USER = props["REMOTE_USER"]
 		self.REMOTE_HOST = props["REMOTE_HOST"]
 		self.ACCESS_PORT = props["ACCESS_PORT"]
 		self.SSHKEY_FILE = props["SSHKEY_FILE"]
@@ -23,12 +24,14 @@ class Tunnel:
 
 	def dig(self):
 		try:
-			self.process = run([
-				"ssh", "-f", "-N", "-T", self.MODE,
-				f"{self.TUNNEL_PORT}:{self.TARGET_HOST}:{self.TARGET_PORT}",
-				"-i", self.SSHKEY_FILE,
-				"-p", self.ACCESS_PORT,
-			])
+			self.process = Popen(
+				shell=True,
+				args="ssh -f -N -T"
+					+ f" {self.MODE} {self.TUNNEL_PORT}:{self.TARGET_HOST}:{self.TARGET_PORT}"
+					+ f" {self.REMOTE_USER}@{self.REMOTE_HOST}"
+					+ f" -i {self.SSHKEY_FILE}"
+					+ f" -p {self.ACCESS_PORT}"
+			)
 		except OSError as e:
 			raise OSError(e)
 

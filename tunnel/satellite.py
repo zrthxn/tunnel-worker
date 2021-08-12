@@ -17,6 +17,7 @@ class Satellite:
 	is_launched = False
 
 	def __init__(self, **props) -> None:
+		self.REMOTE_USER = props["REMOTE_USER"]
 		self.REMOTE_HOST = props["REMOTE_HOST"]
 		self.ACCESS_PORT = props["ACCESS_PORT"]
 		self.SSHKEY_FILE = props["SSHKEY_FILE"]
@@ -41,8 +42,10 @@ class Satellite:
 			self.FAIL_STATUS = int(props["FAIL_STATUS"])
 			
 	def launch(self):
+		print(f"Launching {self.REMOTE_USER}@{self.REMOTE_HOST}")
 		try:
 			self.tunnel = Tunnel(
+				REMOTE_USER=self.REMOTE_USER,
 				REMOTE_HOST=self.REMOTE_HOST,
 				ACCESS_PORT=self.ACCESS_PORT,
 				SSHKEY_FILE=self.SSHKEY_FILE,
