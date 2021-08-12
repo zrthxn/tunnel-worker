@@ -3,7 +3,7 @@ from yaml import load, loader
 from os import environ
 from satellite import Satellite
 
-yml = """
+f = """
 version: '3.7'
 satellites:
   nastunnel:
@@ -13,43 +13,39 @@ satellites:
     SSHKEY_FILE: "../autossh_id_rsa"
     TUNNEL_PORT: 8000
 
-    TUNNEL_MODE: "-R"
     TARGET_HOST: "10.0.0.100"
     TARGET_PORT: 5500
-    REMOTE_PING_PORT: 80
-    REMOTE_PING_VERB: "GET"
-    FAIL_STATUS: 502
 """
 
 def build_satellites() -> List[Satellite]:
-	config_path = "" # environ.get("CONFIG_FILE")
+	config_path = environ.get("CONFIG_FILE")
 
 	if config_path != None:
-		# with open(config_path) as f:
-		# config = load(f, Loader=loader.SafeLoader)
-		config = load(yml, Loader=loader.SafeLoader)
-		satellites = config["satellites"]
-		built = []
+		with open(config_path) as f:
+			config = load(f, Loader=loader.SafeLoader)
+			satellites = config["satellites"]
+			built = []
 
-		for sat in satellites.keys():
-			built.append(
-				Satellite(
-					REMOTE_USER=satellites[sat]["REMOTE_USER"],
-					REMOTE_HOST=satellites[sat]["REMOTE_HOST"],
-					ACCESS_PORT=satellites[sat]["ACCESS_PORT"],
-					SSHKEY_FILE=satellites[sat]["SSHKEY_FILE"],
-					TUNNEL_PORT=satellites[sat]["TUNNEL_PORT"],
+			for sat in satellites.keys():
+				dic = satellites[sat]
+				built.append(
+					Satellite(
+						REMOTE_USER=key_or_none(dic, "REMOTE_USER"),
+						REMOTE_HOST=key_or_none(dic, "REMOTE_HOST"),
+						ACCESS_PORT=key_or_none(dic, "ACCESS_PORT"),
+						SSHKEY_FILE=key_or_none(dic, "SSHKEY_FILE"),
+						TUNNEL_PORT=key_or_none(dic, "TUNNEL_PORT"),
 
-					TUNNEL_MODE=satellites[sat]["TUNNEL_MODE"],
-					TARGET_HOST=satellites[sat]["TARGET_HOST"],
-					TARGET_PORT=satellites[sat]["TARGET_PORT"],
-					REMOTE_PING_PORT=satellites[sat]["REMOTE_PING_PORT"],
-					REMOTE_PING_VERB=satellites[sat]["REMOTE_PING_VERB"],
-					FAIL_STATUS=satellites[sat]["FAIL_STATUS"],
+						TUNNEL_MODE=key_or_none(dic, "TUNNEL_MODE"),
+						TARGET_HOST=key_or_none(dic, "TARGET_HOST"),
+						TARGET_PORT=key_or_none(dic, "TARGET_PORT"),
+						REMOTE_PING_PORT=key_or_none(dic, "REMOTE_PING_PORT"),
+						REMOTE_PING_VERB=key_or_none(dic, "REMOTE_PING_VERB"),
+						FAIL_STATUS=key_or_none(dic, "FAIL_STATUS"),
+					)
 				)
-			)
 
-		return built
+			return built
 
 	elif environ.get("REMOTE_USER") != None:
 		return [
@@ -71,3 +67,8 @@ def build_satellites() -> List[Satellite]:
 	else:
 		return []
 		
+def key_or_none(dict: dict, key: str):
+	try:
+		return dict[key]
+	except KeyError:
+		return None

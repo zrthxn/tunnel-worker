@@ -1,4 +1,4 @@
-from http import HTTPStatus, client
+from http import client
 from sshtun import Tunnel
 
 class Satellite:
@@ -12,7 +12,7 @@ class Satellite:
 	TARGET_PORT = 80
 	REMOTE_PING_PORT = 80 
 	REMOTE_PING_VERB = "GET"
-	FAIL_STATUS = 502 # HTTPStatus.BAD_GATEWAY
+	FAIL_STATUS = 502
 
 	is_launched = False
 
@@ -63,6 +63,8 @@ class Satellite:
 	def ping(self):
 		c = client.HTTPConnection(self.REMOTE_HOST, int(self.REMOTE_PING_PORT))
 		if int(self.REMOTE_PING_PORT) == 443:
+			# This does not work due to SSL handshake issues.
+			# Certificate changes on subsequent requests.
 			c = client.HTTPSConnection(self.REMOTE_HOST, 443)
 		try:
 			c.request(self.REMOTE_PING_VERB, "/")

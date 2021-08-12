@@ -25,16 +25,18 @@ class setInterval:
 
 
 def main(satellites: List[Satellite]):
-	print("Checking all satellites")
+	print("Checking all satellites...")
 	for sat in satellites:
-		print(f"\tPING satellite {sat.REMOTE_USER}@{sat.REMOTE_HOST}")
+		print(f"PING satellite {sat.REMOTE_USER}@{sat.REMOTE_HOST}")
 		if sat.ping() == sat.FAIL_STATUS:
 			sat.relaunch()
 
 	return 0
 
 if __name__ == "__main__":
+	print("Building satellites...")
 	satellites = build_satellites()
+	print(f"Built {len(satellites)} satellites")
 
 	__time = 3600
 	if environ.get("PING_INTERVAL") != None:
