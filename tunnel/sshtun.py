@@ -1,3 +1,4 @@
+from os import environ
 from subprocess import Popen
 
 class Tunnel:
@@ -23,14 +24,22 @@ class Tunnel:
 			self.MODE = props["TUNNEL_MODE"]
 
 	def dig(self):
+		command = "ssh -f -N -T"
+		+ f" {self.MODE} {self.TUNNEL_PORT}:{self.TARGET_HOST}:{self.TARGET_PORT}"
+		+ f" {self.REMOTE_USER}@{self.REMOTE_HOST}"
+		+ f" -i {self.SSHKEY_FILE}"
+		+ f" -p {self.ACCESS_PORT}"
+
+		hosts = environ.get("KNOWN_HOSTS")
+		if hosts != None:
+			command += f" -o StrictHostKeyChecking=yes {hosts}"
+		else:
+			command += f" -o StrictHostKeyChecking=no"
+
 		try:
 			self.process = Popen(
 				shell=True,
-				args="ssh -f -N -T"
-					+ f" {self.MODE} {self.TUNNEL_PORT}:{self.TARGET_HOST}:{self.TARGET_PORT}"
-					+ f" {self.REMOTE_USER}@{self.REMOTE_HOST}"
-					+ f" -i {self.SSHKEY_FILE}"
-					+ f" -p {self.ACCESS_PORT}"
+				args=command
 			)
 		except OSError as e:
 			raise OSError(e)
