@@ -6,7 +6,7 @@ from satellite import Satellite
 def build_satellites() -> List[Satellite]:
 	config_path = environ.get("CONFIG_FILE")
 
-	if config_path is not None:
+	if config_path != None:
 		with open(config_path) as f:
 			config = load(f, Loader=loader.SafeLoader)
 			satellites = config["satellites"]
@@ -31,7 +31,7 @@ def build_satellites() -> List[Satellite]:
 
 			return built
 
-	elif environ.get("REMOTE_HOST") is not None:
+	elif environ.get("REMOTE_HOST") != None:
 		return [
 			Satellite(
 				REMOTE_HOST=environ.get("REMOTE_HOST"),

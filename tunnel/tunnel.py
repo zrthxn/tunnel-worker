@@ -38,7 +38,7 @@ if __name__ == "__main__":
 	satellites = build_satellites()
 
 	__time = 3600
-	if environ.get("PING_INTERVAL") is not None:
+	if environ.get("PING_INTERVAL") != None:
 		__time = int(environ.get("PING_INTERVAL"))
 
 	def action():

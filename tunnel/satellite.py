@@ -25,19 +25,19 @@ class Satellite:
 		self.TARGET_HOST = props["TARGET_HOST"]
 		self.TARGET_PORT = props["TARGET_PORT"]
 
-		if props["TARGET_HOST"] is not None:
+		if props["TARGET_HOST"] != None:
 			self.TARGET_HOST = props["TARGET_HOST"]
-		if props["TARGET_PORT"] is not None:
+		if props["TARGET_PORT"] != None:
 			self.TARGET_PORT = props["TARGET_PORT"]
-		if props["TUNNEL_MODE"] is not None:
+		if props["TUNNEL_MODE"] != None:
 			self.TUNNEL_MODE = props["TUNNEL_MODE"]
 
-		if props["REMOTE_PING_PORT"] is not None:
+		if props["REMOTE_PING_PORT"] != None:
 			self.REMOTE_PING_PORT = props["REMOTE_PING_PORT"]
-		if props["REMOTE_PING_PORT"] is not None:
+		if props["REMOTE_PING_PORT"] != None:
 			self.REMOTE_PING_VERB = props["REMOTE_PING_VERB"]
 
-		if props["FAIL_STATUS"] is not None:
+		if props["FAIL_STATUS"] != None:
 			self.FAIL_STATUS = int(props["FAIL_STATUS"])
 			
 	def launch(self):
