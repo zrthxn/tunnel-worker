@@ -32,6 +32,13 @@ class Tunnel:
 		except OSError as e:
 			raise OSError(e)
 
+	def terminate(self):
+		print(f"[{self.process.pid}] Terminating!")
+		try:
+			self.process.terminate()
+		except OSError:
+			self.kill()
+
 	def kill(self):
 		print(f"[{self.process.pid}] They want to kill me!")
 		try:

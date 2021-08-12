@@ -11,7 +11,7 @@ class Satellite:
 	TARGET_PORT = 80
 	REMOTE_PING_PORT = 80 
 	REMOTE_PING_VERB = "GET"
-	FAIL_STATUS = HTTPStatus.BAD_GATEWAY[0]
+	FAIL_STATUS = 502 # HTTPStatus.BAD_GATEWAY
 
 	is_launched = False
 
