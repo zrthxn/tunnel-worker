@@ -3,20 +3,6 @@ from yaml import load, loader
 from os import environ
 from satellite import Satellite
 
-f = """
-version: '3.7'
-satellites:
-  nastunnel:
-    REMOTE_USER: "ubuntu"
-    REMOTE_HOST: "13.232.166.105"
-    ACCESS_PORT: 2020
-    SSHKEY_FILE: "../autossh_id_rsa"
-    TUNNEL_PORT: 8000
-
-    TARGET_HOST: "10.0.0.100"
-    TARGET_PORT: 5500
-"""
-
 def build_satellites() -> List[Satellite]:
 	config_path = environ.get("CONFIG_FILE")
 
