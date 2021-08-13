@@ -73,6 +73,8 @@ class Satellite:
 			return r.getcode()
 		except ConnectionError:
 			return self.FAIL_STATUS
+		except TypeError:
+			return self.FAIL_STATUS
 
 	def relaunch(self):
 		self.tunnel.kill()
