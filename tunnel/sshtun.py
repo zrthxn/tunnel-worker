@@ -25,10 +25,10 @@ class Tunnel:
 
 	def dig(self):
 		command = "ssh -f -N -T"
-		+ f" {self.MODE} {self.TUNNEL_PORT}:{self.TARGET_HOST}:{self.TARGET_PORT}"
-		+ f" {self.REMOTE_USER}@{self.REMOTE_HOST}"
-		+ f" -i {self.SSHKEY_FILE}"
-		+ f" -p {self.ACCESS_PORT}"
+		command += f" {self.MODE} {self.TUNNEL_PORT}:{self.TARGET_HOST}:{self.TARGET_PORT}"
+		command += f" {self.REMOTE_USER}@{self.REMOTE_HOST}"
+		command += f" -i {self.SSHKEY_FILE}"
+		command += f" -p {self.ACCESS_PORT}"
 
 		hosts = environ.get("KNOWN_HOSTS")
 		if hosts != None:
