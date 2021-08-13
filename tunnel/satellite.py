@@ -77,7 +77,7 @@ class Satellite:
 			return self.FAIL_STATUS
 
 	def relaunch(self):
-		self.tunnel.kill()
+		self.tunnel.terminate()
 		self.is_launched = False
 		self.launch()
 	
