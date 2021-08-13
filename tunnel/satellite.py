@@ -61,6 +61,7 @@ class Satellite:
 			raise OSError(e)
 
 	def ping(self):
+		print(f"[PING] {self.REMOTE_PING_VERB} {self.REMOTE_HOST}:{self.REMOTE_PING_PORT}")
 		c = client.HTTPConnection(self.REMOTE_HOST, int(self.REMOTE_PING_PORT))
 		if int(self.REMOTE_PING_PORT) == 443:
 			# This does not work due to SSL handshake issues.

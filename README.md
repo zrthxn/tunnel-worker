@@ -24,6 +24,7 @@ services:
     restart: unless-stopped
     environment:
       - PING_INTERVAL=3600
+      - REMOTE_USER=user
       - REMOTE_HOST=host
       - ACCESS_PORT=22
       - SSHKEY_FILE=/keys/host
@@ -60,6 +61,7 @@ services:
 # Config.yaml
 satellites:
   one:
+    REMOTE_USER: "user"
     REMOTE_HOST: "host"
     ACCESS_PORT: 22
     SSHKEY_FILE: "/keys/host"
