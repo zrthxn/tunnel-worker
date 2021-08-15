@@ -37,14 +37,14 @@ satellites = build_satellites()
 print(f"Built {len(satellites)} satellites")
 
 if __name__ == "__main__":
-
-	__time = 2
+	__time = 3600
 	if environ.get("PING_INTERVAL") != None:
 		__time = int(environ.get("PING_INTERVAL"))
 
 	if len(satellites) > 0:
 		for sat in satellites:
 			sat.launch()
+			
 		interval = setInterval(__time, main, satellites=satellites)
 	else:
 		raise RuntimeError("No Satellites Built")

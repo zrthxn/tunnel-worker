@@ -1,4 +1,5 @@
 from http import client
+from time import sleep
 from sshtun import Tunnel
 
 class Satellite:
@@ -78,6 +79,7 @@ class Satellite:
 
 	def relaunch(self):
 		self.tunnel.kill()
+		sleep(5)
 		self.is_launched = False
 		self.launch()
 	
